@@ -1,14 +1,16 @@
-"use client"
+"use client";
 
-import { Canvas } from "@react-three/fiber"
-import { OrbitControls, Environment } from "@react-three/drei"
-import { useRef, useState, useEffect } from "react"
-import * as THREE from "three"
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Environment } from "@react-three/drei";
+import { useRef, useState, useEffect } from "react";
+import * as THREE from "three";
 
 const isMobile = () => {
-  if (typeof window === "undefined") return false
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-}
+  if (typeof window === "undefined") return false;
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+};
 
 const BoxWithEdges = ({ position }) => {
   return (
@@ -30,11 +32,11 @@ const BoxWithEdges = ({ position }) => {
         <lineBasicMaterial color="#214dbd" linewidth={2} />
       </lineSegments>
     </group>
-  )
-}
+  );
+};
 
 const BoxLetter = ({ letter, position }) => {
-  const group = useRef()
+  const group = useRef();
 
   const getLetterShape = (letter) => {
     const shapes = {
@@ -94,11 +96,11 @@ const BoxLetter = ({ letter, position }) => {
         [0, 1, 0],
         [0, 1, 0],
       ],
-    }
-    return shapes[letter] || shapes["H"] // Default to 'H' if letter is not found
-  }
+    };
+    return shapes[letter] || shapes["H"]; // Default to 'H' if letter is not found
+  };
 
-  const letterShape = getLetterShape(letter)
+  const letterShape = getLetterShape(letter);
 
   return (
     <group ref={group} position={position}>
@@ -110,73 +112,81 @@ const BoxLetter = ({ letter, position }) => {
               (letter === "T" || letter === "I"
                 ? 1
                 : letter === "E"
-                  ? 0.5
-                  : letter === "R"
-                    ? 1.5
-                    : letter === "X" || letter === "N" || letter === "H" || letter === "M"
-                      ? 1
-                      : 0.75)
+                ? 0.5
+                : letter === "R"
+                ? 1.5
+                : letter === "X" ||
+                  letter === "N" ||
+                  letter === "H" ||
+                  letter === "M"
+                ? 1
+                : 0.75);
 
             if (letter === "H" || letter === "N" || letter === "M") {
               if (j === 0) {
-                xOffset = -1
+                xOffset = -1;
               } else if (j === 1) {
-                xOffset = -0.5
+                xOffset = -0.5;
               } else if (j === 2) {
-                xOffset = 0
+                xOffset = 0;
               } else if (j === 3) {
-                xOffset = 0.5
+                xOffset = 0.5;
               } else if (j === 4) {
-                xOffset = 1
+                xOffset = 1;
               }
             }
 
             if (letter === "X") {
               if (j === 0) {
-                xOffset = -1
+                xOffset = -1;
               } else if (j === 1) {
-                xOffset = -0.75
+                xOffset = -0.75;
               } else if (j === 2) {
-                xOffset = -0.25
+                xOffset = -0.25;
               } else if (j === 3) {
-                xOffset = 0.25
+                xOffset = 0.25;
               } else if (j === 4) {
-                xOffset = 0.5
+                xOffset = 0.5;
               }
             }
 
             if (letter === "R") {
               if (j === 0) {
-                xOffset = -1
+                xOffset = -1;
               } else if (j === 1) {
-                xOffset = -0.5
+                xOffset = -0.5;
               } else if (j === 2) {
-                xOffset = 0
+                xOffset = 0;
               } else if (j === 3) {
-                xOffset = 0.5
+                xOffset = 0.5;
               }
             }
 
-            return <BoxWithEdges key={`${i}-${j}`} position={[xOffset, (4 - i) * 0.5 - 1, 0]} />
+            return (
+              <BoxWithEdges
+                key={`${i}-${j}`}
+                position={[xOffset, (4 - i) * 0.5 - 1, 0]}
+              />
+            );
           }
-          return null
-        }),
+          return null;
+        })
       )}
     </group>
-  )
-}
+  );
+};
 
 const Scene = () => {
-  const orbitControlsRef = useRef()
-  const [isMobileDevice, setIsMobileDevice] = useState(false)
+  const orbitControlsRef = useRef();
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
 
   useEffect(() => {
-    setIsMobileDevice(isMobile())
-  }, [])
+    setIsMobileDevice(isMobile());
+  }, []);
 
   return (
     <>
-      <group position={[0, 0, 0]} rotation={[0, Math.PI, 0]}>
+      <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
         <BoxLetter letter="H" position={[-7.5, 0, 0]} />
         <BoxLetter letter="E" position={[-4.5, 0, 0]} />
         <BoxLetter letter="I" position={[-1.5, 0, 0]} />
@@ -207,15 +217,15 @@ const Scene = () => {
         background
       />
     </>
-  )
-}
+  );
+};
 
 export default function Component() {
   return (
     <div className="w-full h-screen bg-gray-900">
-      <Canvas camera={{ position: [10.047021, -0.127436, -11.137374], fov: 50 }}>
+      <Canvas camera={{ position: [0, 0, 15], fov: 50 }}>
         <Scene />
       </Canvas>
     </div>
-  )
+  );
 }
