@@ -1,6 +1,6 @@
 "use client"
 
-import Component from "../next-blocks"
+import Component from "../heimer-blocks"
 
 export default function SyntheticV0PageForDeployment() {
   return <Component />
