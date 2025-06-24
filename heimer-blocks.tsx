@@ -179,9 +179,58 @@ const BoxLetter = ({ letter, position }) => {
 const Scene = () => {
   const orbitControlsRef = useRef();
   const [isMobileDevice, setIsMobileDevice] = useState(false);
+  const [autoRotateSpeed, setAutoRotateSpeed] = useState(0.5);
+  const [isUserInteracting, setIsUserInteracting] = useState(false);
+  const lastDragVelocity = useRef(0);
+  const dragStartTime = useRef(0);
+  const dragStartAngle = useRef(0);
 
   useEffect(() => {
     setIsMobileDevice(isMobile());
+  }, []);
+
+  useEffect(() => {
+    const controls = orbitControlsRef.current;
+    if (!controls) return;
+
+    const handleStart = () => {
+      setIsUserInteracting(true);
+      dragStartTime.current = Date.now();
+      dragStartAngle.current = controls.getAzimuthalAngle();
+    };
+
+    const handleEnd = () => {
+      const endTime = Date.now();
+      const endAngle = controls.getAzimuthalAngle();
+      const timeDiff = (endTime - dragStartTime.current) / 1000; // Convert to seconds
+      const angleDiff = endAngle - dragStartAngle.current;
+      
+      if (timeDiff > 0) {
+        // Calculate velocity (radians per second)
+        const velocity = angleDiff / timeDiff;
+        lastDragVelocity.current = velocity;
+        
+        // Convert velocity to auto-rotate speed (degrees per second)
+        // OrbitControls autoRotateSpeed is in degrees per second
+        // REVERSE THE DIRECTION by negating the velocity
+        const newSpeed = -(velocity * 180) / Math.PI;
+        
+        // Set speed to match initial page load speed (0.5)
+        // Keep the direction based on drag, but use consistent speed
+        const direction = newSpeed >= 0 ? 1 : -1;
+        setAutoRotateSpeed(direction * 0.5);
+      }
+      
+      setIsUserInteracting(false);
+    };
+
+    controls.addEventListener('start', handleStart);
+    controls.addEventListener('end', handleEnd);
+
+    return () => {
+      controls.removeEventListener('start', handleStart);
+      controls.removeEventListener('end', handleEnd);
+    };
   }, []);
 
   return (
@@ -199,9 +248,11 @@ const Scene = () => {
         enableZoom
         enablePan
         enableRotate
-        autoRotate
-        autoRotateSpeed={0.5}
+        autoRotate={!isUserInteracting}
+        autoRotateSpeed={autoRotateSpeed}
         target={[0, 0, 0]}
+        minDistance={0}
+        maxDistance={100}
       />
 
       <ambientLight intensity={0.5} />
