@@ -1,122 +1,174 @@
-# Next.js Conf 2024
+# Next.js Conf 2024 - Interactive 3D Scene
 
-_Automatically synced with your [v0.dev](https://v0.dev) deployments_
+A modern Next.js application featuring an interactive 3D scene built with React Three Fiber, showcasing animated box letters and immersive user interactions.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/heimers-projects/v0-next-js-conf-2024)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/Z9328RxtugE)
-
-## Overview
-
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
-
-## Deployment
-
-Your project is live at:
+## 🚀 Live Demo
 
 **[https://vercel.com/heimers-projects/v0-next-js-conf-2024](https://vercel.com/heimers-projects/v0-next-js-conf-2024)**
 
-## Build your app
+## ✨ Features
 
-Continue building your app on:
+- **Interactive 3D Scene**: Immersive 3D environment with animated box letters
+- **Responsive Design**: Optimized for both desktop and mobile devices
+- **Smooth Animations**: Fluid motion and physics-based interactions
+- **Modern UI Components**: Comprehensive component library built with Radix UI and Tailwind CSS
+- **TypeScript**: Full type safety throughout the application
+- **Performance Optimized**: Efficient rendering with React Three Fiber
 
-**[https://v0.dev/chat/projects/Z9328RxtugE](https://v0.dev/chat/projects/Z9328RxtugE)**
+## 🛠️ Tech Stack
 
-## How It Works
-
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
-
----
-
-# Project Rules
-
-## Coding Style
-
-- Use TypeScript for all React components and logic.
-- Prefer functional components over class components.
-- Use hooks for state and side effects.
-- Follow the existing folder structure for components, hooks, and utilities.
-- Use Tailwind CSS utility classes for styling.
-- Keep components small and focused; split into smaller components when necessary.
-- Use named exports unless a file only exports a single component.
-- Write clear, descriptive variable and function names.
-- Add JSDoc comments for complex functions or utilities.
-- Keep imports organized: external libraries first, then internal modules.
-
-## Commit Messages
-
-- Follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
-- Example commit message: `feat(button): add loading state to Button component`
-- Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
-- Scope: use the affected part of the codebase (e.g., `button`, `form`, `hooks`).
-- Subject: concise description of the change.
-
----
-
-# Project Memories
-
-## Tech Stack
-
-- **Framework:** Next.js (React, TypeScript)
-- **Styling:** Tailwind CSS
-- **Component Library:** Custom components in `/components/ui/`
+- **Framework:** Next.js 15.2.4 (React 19, TypeScript)
+- **3D Graphics:** React Three Fiber, Three.js, @react-three/drei
+- **Styling:** Tailwind CSS, Tailwind CSS Animate
+- **UI Components:** Radix UI primitives, shadcn/ui patterns
+- **Forms:** React Hook Form with Zod validation
+- **Icons:** Lucide React
 - **Package Manager:** pnpm
-- **Other:** PostCSS, Shadcn UI patterns
+- **Deployment:** Vercel
 
-## Design Decisions
+## 🏗️ Project Structure
 
-- Use the `/components/ui/` directory for all reusable UI components, following atomic design principles.
-- Global styles are managed in `app/globals.css` and `styles/globals.css`.
-- Theme management is handled by `components/theme-provider.tsx`.
-- All hooks are placed in the `/hooks/` directory for reusability.
-- Use the `/lib/` directory for utility functions.
-- Static assets are stored in the `/public/` directory.
-- Project uses strict TypeScript settings for type safety.
-- Follows Conventional Commits for commit messages and changelog generation.
+```
+├── app/                    # Next.js app directory
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Root layout component
+│   └── page.tsx           # Main page component
+├── components/            # React components
+│   ├── ui/               # Reusable UI components
+│   ├── BoxLetter.tsx     # 3D animated letter component
+│   ├── BoxWithEdges.tsx  # 3D box with edge highlighting
+│   ├── DanglingText.tsx  # Animated text component
+│   ├── Scene.tsx         # Main 3D scene component
+│   └── theme-provider.tsx # Theme context provider
+├── hooks/                # Custom React hooks
+├── lib/                  # Utility functions
+├── public/               # Static assets
+├── styles/               # Additional global styles
+└── utils/                # Utility functions
+```
 
----
+## 🎮 Interactive Features
 
-# Project Index
+### 3D Scene Controls
 
-This section provides an overview of the project structure and the purpose of key files and directories.
+- **Orbit Controls**: Click and drag to rotate the camera around the scene
+- **Auto-rotation**: Scene automatically rotates when not interacting
+- **Momentum-based Animation**: Drag velocity affects auto-rotation speed
+- **Mobile Optimization**: Touch-friendly controls for mobile devices
 
-## Root
+### Animated Elements
 
-- `package.json` — Project dependencies and scripts
-- `pnpm-lock.yaml` — Lockfile for pnpm package manager
-- `README.md` — Project overview and setup instructions
-- `next.config.mjs` — Next.js configuration
-- `postcss.config.mjs` — PostCSS configuration
-- `tailwind.config.ts` — Tailwind CSS configuration
-- `tsconfig.json` — TypeScript configuration
+- **Box Letters**: Individual 3D letters with physics-based animations
+- **Random Movement**: Letters move independently when user is not interacting
+- **Color Transitions**: Smooth color changes and visual effects
+- **Responsive Layout**: Adapts to different screen sizes
 
-## Directories
+## 🚀 Getting Started
 
-- `/app/` — Next.js app directory (entry point, global layout, and pages)
-  - `globals.css` — Global styles
-  - `layout.tsx` — Root layout component
-  - `page.tsx` — Main page component
-- `/components/` — Shared and UI components
-  - `/ui/` — Reusable UI components (buttons, forms, dialogs, etc.)
-  - `theme-provider.tsx` — Theme context and provider
-  - `heimer-blocks.tsx` — Custom blocks/components
-- `/hooks/` — Custom React hooks
-- `/lib/` — Utility functions and helpers
-- `/public/` — Static assets (images, logos, etc.)
-- `/styles/` — Additional global styles
+### Prerequisites
 
-## Other
+- Node.js 18+
+- pnpm (recommended) or npm
 
-- `.md` files — Documentation and project notes
+### Installation
 
----
+1. **Clone the repository**
 
-## Notable Features
+   ```bash
+   git clone <repository-url>
+   cd Next.js-Conf
+   ```
 
-- **3D Interactive Scene**: The main page renders a 3D scene using React Three Fiber, with custom logic for displaying animated box letters and interactive controls. See `heimer-blocks.tsx` for implementation details.
-- **UI Component Library**: The `/components/ui/` directory contains a comprehensive set of reusable UI components, based on shadcn/ui and Radix UI (accessible, themeable, and composable).
-- **Custom Hooks**: The `/hooks/` directory provides reusable logic, such as mobile detection and toast notifications.
-- **Utility Functions**: The `/lib/utils.ts` file exports a `cn` function for merging Tailwind and clsx class names, simplifying dynamic styling.
+2. **Install dependencies**
+
+   ```bash
+   pnpm install
+   ```
+
+3. **Run the development server**
+
+   ```bash
+   pnpm dev
+   ```
+
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+### Build for Production
+
+```bash
+pnpm build
+pnpm start
+```
+
+## 🎨 Customization
+
+### Adding New 3D Components
+
+1. Create new components in the `components/` directory
+2. Import and use them in `Scene.tsx`
+3. Follow the existing patterns for props and animations
+
+### Styling
+
+- Global styles: `app/globals.css`
+- Component styles: Use Tailwind CSS classes
+- Theme customization: Modify `components/theme-provider.tsx`
+
+### UI Components
+
+- All reusable UI components are in `components/ui/`
+- Based on Radix UI primitives for accessibility
+- Follow shadcn/ui patterns for consistency
+
+## 📦 Key Dependencies
+
+### 3D Graphics
+
+- `@react-three/fiber`: React renderer for Three.js
+- `@react-three/drei`: Useful helpers for React Three Fiber
+- `three`: 3D graphics library
+
+### UI & Styling
+
+- `@radix-ui/*`: Accessible UI primitives
+- `tailwindcss`: Utility-first CSS framework
+- `lucide-react`: Beautiful icons
+- `class-variance-authority`: Component variant management
+
+### Forms & Validation
+
+- `react-hook-form`: Performant forms
+- `@hookform/resolvers`: Form validation resolvers
+- `zod`: TypeScript-first schema validation
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Commit Convention
+
+Follow [Conventional Commits](https://www.conventionalcommits.org/):
+
+- `feat:` New features
+- `fix:` Bug fixes
+- `docs:` Documentation changes
+- `style:` Code style changes
+- `refactor:` Code refactoring
+- `perf:` Performance improvements
+- `test:` Adding or updating tests
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙏 Acknowledgments
+
+- Built with [Next.js](https://nextjs.org/)
+- 3D graphics powered by [React Three Fiber](https://github.com/pmndrs/react-three-fiber)
+- UI components inspired by [shadcn/ui](https://ui.shadcn.com/)
+- Deployed on [Vercel](https://vercel.com/)
