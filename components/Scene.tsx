@@ -8,7 +8,6 @@ import * as THREE from "three";
 export const Scene = () => {
   const orbitControlsRef = useRef<any>(null);
   const heimerGroupRef = useRef<THREE.Group>(null);
-  const allLetterPositions = useRef<Map<string, THREE.Vector3>>(new Map());
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const [autoRotateSpeed, setAutoRotateSpeed] = useState(0.5);
   const [isUserInteracting, setIsUserInteracting] = useState(false);
@@ -73,8 +72,6 @@ export const Scene = () => {
           position={[-6.25, 0, 0]}
           color="#0070f3"
           enableRandomMovement
-          allLetterPositions={allLetterPositions}
-          letterId="H-0"
           isUserInteracting={isUserInteracting}
         />
         <BoxLetter
@@ -82,8 +79,6 @@ export const Scene = () => {
           position={[-3.75, 0, 0]}
           color="#0070f3"
           enableRandomMovement
-          allLetterPositions={allLetterPositions}
-          letterId="E-1"
           isUserInteracting={isUserInteracting}
         />
         <BoxLetter
@@ -91,8 +86,6 @@ export const Scene = () => {
           position={[-1.25, 0, 0]}
           color="#0070f3"
           enableRandomMovement
-          allLetterPositions={allLetterPositions}
-          letterId="I-2"
           isUserInteracting={isUserInteracting}
         />
         <BoxLetter
@@ -100,8 +93,6 @@ export const Scene = () => {
           position={[1.25, 0, 0]}
           color="#0070f3"
           enableRandomMovement
-          allLetterPositions={allLetterPositions}
-          letterId="M-3"
           isUserInteracting={isUserInteracting}
         />
         <BoxLetter
@@ -109,8 +100,6 @@ export const Scene = () => {
           position={[3.75, 0, 0]}
           color="#0070f3"
           enableRandomMovement
-          allLetterPositions={allLetterPositions}
-          letterId="E-4"
           isUserInteracting={isUserInteracting}
         />
         <BoxLetter
@@ -118,8 +107,6 @@ export const Scene = () => {
           position={[6.25, 0, 0]}
           color="#0070f3"
           enableRandomMovement
-          allLetterPositions={allLetterPositions}
-          letterId="R-5"
           isUserInteracting={isUserInteracting}
         />
         {/* Dangling Software Developer text centered below HEIMER */}

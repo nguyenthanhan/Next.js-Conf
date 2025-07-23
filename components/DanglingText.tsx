@@ -12,6 +12,25 @@ interface DanglingTextProps {
   isUserInteracting?: boolean;
 }
 
+// Animation configuration constants
+const ANIMATION_CONFIG = {
+  FLOAT_UPDATE_INTERVAL: 0.016, // ~60fps for smoother animation
+  INTERACTION_DEBOUNCE: 0.1, // Reduced to 100ms for faster response
+  SWING_THRESHOLD: 0.003,
+  SWING_TARGET_THRESHOLD: 0.02,
+  SWAY_INFLUENCE: 0.1,
+  AMPLITUDE: {
+    X: 0.12,
+    Y: 0.08,
+    Z: 0.06,
+  },
+  SPEED_RANGE: {
+    X: { min: 0.3, max: 0.6 },
+    Y: { min: 0.6, max: 1.0 },
+    Z: { min: 0.2, max: 0.4 },
+  },
+} as const;
+
 export const DanglingText = ({
   text,
   position,
@@ -21,81 +40,84 @@ export const DanglingText = ({
   isUserInteracting = false,
 }: DanglingTextProps) => {
   const group = useRef<THREE.Group>(null);
-  // Physics state
+
+  // Animation state
   const [swing, setSwing] = useState(0);
+  const [floatOffset, setFloatOffset] = useState({ x: 0, y: 0, z: 0 });
+
+  // Animation refs for performance
   const swingVelocity = useRef(0);
   const lastParentRot = useRef(0);
-
-  // Removed collision detection and bounce animation
-
-  // For a little random sway
-  const [randomSeed] = useState(() => Math.random() * 1000);
-
-  // 3D floating animation - simplified approach
-  const [floatOffset, setFloatOffset] = useState({ x: 0, y: 0, z: 0 });
   const lastFloatUpdate = useRef(0);
-  const lastInteractionTime = useRef(0);
+
+  // Random seeds for natural movement
+  const [randomSeed] = useState(() => Math.random() * 1000);
   const [floatSeeds] = useState(() => ({
     x: Math.random() * 1000,
     y: Math.random() * 1000 + 300,
     z: Math.random() * 1000 + 600,
-    speedX: 0.3 + Math.random() * 0.3, // Reduced: 0.3 - 0.6
-    speedY: 0.6 + Math.random() * 0.4, // Reduced: 0.6 - 1.0
-    speedZ: 0.2 + Math.random() * 0.2, // Reduced: 0.2 - 0.4
+    speedX:
+      ANIMATION_CONFIG.SPEED_RANGE.X.min +
+      Math.random() *
+        (ANIMATION_CONFIG.SPEED_RANGE.X.max -
+          ANIMATION_CONFIG.SPEED_RANGE.X.min),
+    speedY:
+      ANIMATION_CONFIG.SPEED_RANGE.Y.min +
+      Math.random() *
+        (ANIMATION_CONFIG.SPEED_RANGE.Y.max -
+          ANIMATION_CONFIG.SPEED_RANGE.Y.min),
+    speedZ:
+      ANIMATION_CONFIG.SPEED_RANGE.Z.min +
+      Math.random() *
+        (ANIMATION_CONFIG.SPEED_RANGE.Z.max -
+          ANIMATION_CONFIG.SPEED_RANGE.Z.min),
   }));
 
-  useFrame((state, delta) => {
-    if (!parentRotationRef.current) return;
+  // Helper function to update float animation
+  const updateFloatAnimation = (time: number): void => {
+    if (time - lastFloatUpdate.current < ANIMATION_CONFIG.FLOAT_UPDATE_INTERVAL)
+      return;
 
-    // Get parent's Y rotation (azimuthal angle)
-    const parentY = parentRotationRef.current.rotation.y;
+    lastFloatUpdate.current = time;
+    const newFloatOffset = {
+      x:
+        Math.sin(time * floatSeeds.speedX + floatSeeds.x) *
+        ANIMATION_CONFIG.AMPLITUDE.X,
+      y:
+        Math.sin(time * floatSeeds.speedY + floatSeeds.y) *
+        ANIMATION_CONFIG.AMPLITUDE.Y,
+      z:
+        Math.sin(time * floatSeeds.speedZ + floatSeeds.z) *
+        ANIMATION_CONFIG.AMPLITUDE.Z,
+    };
+    setFloatOffset(newFloatOffset);
+  };
 
-    // Update interaction time for debouncing
-    if (isUserInteracting) {
-      lastInteractionTime.current = state.clock.elapsedTime;
-    }
+  // Helper function to update swing physics
+  const updateSwingPhysics = (
+    parentY: number,
+    delta: number,
+    currentTime: number
+  ): void => {
+    // Spring physics constants
+    const stiffness = 4;
+    const damping = 3;
 
-    // Check if we should pause animations (during interaction + 200ms after)
-    const timeSinceInteraction =
-      state.clock.elapsedTime - lastInteractionTime.current;
-    const shouldPauseAnimations =
-      isUserInteracting || timeSinceInteraction < 0.2;
-
-    // Removed collision detection and gravity animation for cleaner movement
-
-    // Improved spring physics for swing: more responsive, less oscillation
-    const stiffness = 4; // Increased stiffness for faster response
-    const damping = 3; // Increased damping for less oscillation
-    const target = parentY;
-    const force = stiffness * (target - swing);
+    // Calculate spring force
+    const force = stiffness * (parentY - swing);
     swingVelocity.current += force * delta;
     swingVelocity.current *= Math.exp(-damping * delta);
 
-    // Reduced random sway for more stability and performance
-    const sway = Math.sin(state.clock.elapsedTime * 0.5 + randomSeed) * 0.01; // Reduced speed and amplitude
+    // Add natural sway
+    const sway = Math.sin(currentTime * 0.5 + randomSeed) * 0.01;
+    const swingChange =
+      swingVelocity.current * delta +
+      sway * delta * ANIMATION_CONFIG.SWAY_INFLUENCE;
 
-    // 3D floating animation - throttled updates for better performance
-    const time = state.clock.elapsedTime;
-
-    // Simple approach: only update when not interacting
-    if (!shouldPauseAnimations && time - lastFloatUpdate.current >= 0.032) {
-      lastFloatUpdate.current = time;
-
-      // Reduced amplitude for gentler movement
-      const newFloatOffset = {
-        x: Math.sin(time * floatSeeds.speedX + floatSeeds.x) * 0.12,
-        y: Math.sin(time * floatSeeds.speedY + floatSeeds.y) * 0.08,
-        z: Math.sin(time * floatSeeds.speedZ + floatSeeds.z) * 0.06,
-      };
-
-      setFloatOffset(newFloatOffset);
-    }
-
-    // Only update swing if there's significant change and user is not interacting
-    const swingChange = swingVelocity.current * delta + sway * delta * 0.1;
+    // Update swing if change is significant
     if (
-      !shouldPauseAnimations &&
-      (Math.abs(swingChange) > 0.003 || Math.abs(target - swing) > 0.02)
+      Math.abs(swingChange) > ANIMATION_CONFIG.SWING_THRESHOLD ||
+      Math.abs(parentY - swing) > ANIMATION_CONFIG.SWING_TARGET_THRESHOLD
     ) {
       setSwing((prev) => {
         const next = prev + swingChange;
@@ -105,6 +127,23 @@ export const DanglingText = ({
         return next;
       });
     }
+  };
+
+  useFrame((state, delta) => {
+    // Completely disable animation when user is interacting
+    if (isUserInteracting) {
+      // console.log('Animation paused - user interacting');
+      return;
+    }
+
+    if (!parentRotationRef.current) return;
+
+    const parentY = parentRotationRef.current.rotation.y;
+    const currentTime = state.clock.elapsedTime;
+
+    // console.log('Animation running');
+    updateFloatAnimation(currentTime);
+    updateSwingPhysics(parentY, delta, currentTime);
 
     lastParentRot.current = parentY;
   });
@@ -120,11 +159,15 @@ export const DanglingText = ({
   return (
     <group
       ref={group}
-      position={[
-        position[0] + floatOffset.x,
-        position[1] + floatOffset.y,
-        position[2] + floatOffset.z,
-      ]}
+      position={
+        isUserInteracting
+          ? position
+          : [
+              position[0] + floatOffset.x,
+              position[1] + floatOffset.y,
+              position[2] + floatOffset.z,
+            ]
+      }
     >
       {letters.map((letter, idx) =>
         letter !== " " ? (

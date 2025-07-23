@@ -9,8 +9,6 @@ interface BoxLetterProps {
   scale?: number;
   color: string;
   enableRandomMovement?: boolean;
-  allLetterPositions?: React.RefObject<Map<string, THREE.Vector3>>;
-  letterId?: string;
   isUserInteracting?: boolean;
 }
 
@@ -20,17 +18,12 @@ export const BoxLetter = ({
   scale = 1,
   color,
   enableRandomMovement = false,
-  allLetterPositions,
-  letterId = `${letter}-${Math.random()}`,
   isUserInteracting = false,
 }: BoxLetterProps) => {
   const group = useRef<THREE.Group>(null);
 
   // Random movement state - simplified
   const lastUpdateTime = useRef(0);
-  const lastInteractionTime = useRef(0);
-  const currentPosition = useRef(new THREE.Vector3(...position));
-  const velocity = useRef(new THREE.Vector3(0, 0, 0));
   const [randomSeed] = useState(() => ({
     x: Math.random() * 1000,
     y: Math.random() * 1000 + 500,
@@ -40,79 +33,26 @@ export const BoxLetter = ({
     speedZ: 0.3 + Math.random() * 0.3, // Moderate: 0.3 - 0.6
   }));
 
-  useFrame((state, delta) => {
+  useFrame((state) => {
+    // Completely disable animation when user is interacting
+    if (isUserInteracting) return;
+
     if (enableRandomMovement && group.current) {
       const time = state.clock.elapsedTime;
-
-      // Update interaction time for debouncing
-      if (isUserInteracting) {
-        lastInteractionTime.current = time;
-      }
-
-      // Check if we should pause animations (during interaction + 150ms after)
-      const timeSinceInteraction = time - lastInteractionTime.current;
-      const shouldPauseAnimations =
-        isUserInteracting || timeSinceInteraction < 0.15;
-
-      // Skip animation if user is interacting or recently interacted
-      if (shouldPauseAnimations) return;
 
       // Throttle updates to reduce lag - update every 16ms (~60fps)
       if (time - lastUpdateTime.current < 0.016) return;
       lastUpdateTime.current = time;
 
-      // Moderate random movement with balanced amplitude
-      const baseOffset = {
-        x: Math.sin(time * randomSeed.speedX + randomSeed.x) * 0.1, // Reduced to moderate
-        y: Math.sin(time * randomSeed.speedY + randomSeed.y) * 0.08, // Reduced to moderate
-        z: Math.sin(time * randomSeed.speedZ + randomSeed.z) * 0.06, // Reduced to moderate
-      };
-
-      // Calculate target position
-      const targetPosition = new THREE.Vector3(
-        position[0] + baseOffset.x,
-        position[1] + baseOffset.y,
-        position[2] + baseOffset.z
+      // Simple random movement - no collision detection
+      const newPosition = new THREE.Vector3(
+        position[0] + Math.sin(time * randomSeed.speedX + randomSeed.x) * 0.1,
+        position[1] + Math.sin(time * randomSeed.speedY + randomSeed.y) * 0.08,
+        position[2] + Math.sin(time * randomSeed.speedZ + randomSeed.z) * 0.06
       );
 
-      // Collision detection with other letters
-      if (allLetterPositions?.current) {
-        const collisionDistance = 2.0; // Distance threshold for collision
-        const repelForce = 3; // Moderate force to push letters apart
-
-        allLetterPositions.current.forEach((otherPos, otherId) => {
-          if (otherId !== letterId) {
-            const distance = targetPosition.distanceTo(otherPos);
-            if (distance < collisionDistance) {
-              // Calculate repel direction
-              const repelDirection = targetPosition
-                .clone()
-                .sub(otherPos)
-                .normalize();
-              // Apply repel force
-              velocity.current.add(
-                repelDirection.multiplyScalar(repelForce * delta)
-              );
-            }
-          }
-        });
-
-        // Update position with velocity
-        targetPosition.add(velocity.current);
-
-        // Apply stronger damping to velocity for stability
-        velocity.current.multiplyScalar(0.85);
-
-        // Update stored position
-        currentPosition.current.copy(targetPosition);
-        allLetterPositions.current.set(
-          letterId,
-          currentPosition.current.clone()
-        );
-      }
-
-      // Direct position update - no state change, no re-render
-      group.current.position.copy(targetPosition);
+      // Direct position update - simple and clean
+      group.current.position.copy(newPosition);
     }
   });
 
