@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import Component from "../heimer-blocks"
+import Component from "../App";
 
 export default function SyntheticV0PageForDeployment() {
-  return <Component />
+  return <Component />;
 }
