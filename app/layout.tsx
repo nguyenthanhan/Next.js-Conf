@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Next.js Conf",
+  title: "Showcase",
   description: "Heimer - Software Developer Portfolio",
   generator: "Next.js",
   authors: [{ name: "Heimer", url: "https://github.com/nguyenthanhan" }],
