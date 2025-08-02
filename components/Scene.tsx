@@ -114,7 +114,7 @@ export const Scene = () => {
           text="Software Developer"
           position={[0, -3.5, 0]}
           parentRotationRef={heimerGroupRef}
-          color="#666666"
+          color="#0070f3"
           scale={1 / 3}
           isUserInteracting={isUserInteracting}
         />

@@ -5,7 +5,10 @@ interface BoxWithEdgesProps {
   color?: string;
 }
 
-export const BoxWithEdges = ({ position, color = "#0070f3" }: BoxWithEdgesProps) => {
+export const BoxWithEdges = ({
+  position,
+  color = "#0070f3",
+}: BoxWithEdgesProps) => {
   return (
     <group position={position}>
       <mesh>
