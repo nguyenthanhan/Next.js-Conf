@@ -54,6 +54,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Icon Deprecation**: Resolved deprecated GitHub icon usage
 - **Component Organization**: Added GitHubButton to component exports
 
+## [1.0.3] - 2025-08-02
+
+### ✨ New Features
+
+- Single workflow for releases and deployments
+- GitHub deployment tracking
+
+### 🔧 Improvements
+
+- Better GitHub button visibility
+- Cleaner workflow files
+
+### 🐛 Bug Fixes
+
+- Fixed deployment list not showing
+- Fixed tag movement issues
+
 ## [Unreleased]
 
 ### Planned Features
