@@ -1,10 +1,12 @@
 # Next.js Conf 2024 - Interactive 3D Scene
 
+[![Release and Deploy](https://github.com/nguyenthanhan/next.js-conf/workflows/Release%20and%20Deploy/badge.svg)](https://github.com/nguyenthanhan/next.js-conf/actions/workflows/release-and-deploy.yml)
+[![Deploy on Vercel](https://img.shields.io/badge/Deploy%20on-Vercel-black)](https://vercel.com/heimers-projects/v0-next-js-conf-2024)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white)](https://nextjs.org/)
+
 A modern Next.js application featuring an interactive 3D scene built with React Three Fiber, showcasing animated box letters and immersive user interactions. This project demonstrates cutting-edge web technologies for creating engaging 3D experiences in the browser.
-
-## 🚀 Live Demo
-
-**[https://vercel.com/heimers-projects/v0-next-js-conf-2024](https://vercel.com/heimers-projects/v0-next-js-conf-2024)**
 
 ## ✨ Features
 
@@ -25,10 +27,11 @@ A modern Next.js application featuring an interactive 3D scene built with React 
 - **Styling:** Tailwind CSS, Tailwind CSS Animate
 - **UI Components:** Radix UI primitives, shadcn/ui patterns
 - **Forms:** React Hook Form with Zod validation
-- **Icons:** Lucide React
+- **Icons:** Lucide React, Custom SVG icons
 - **Package Manager:** pnpm
-- **Deployment:** Vercel
+- **Deployment:** Vercel with GitHub Actions
 - **Theme:** next-themes for dark/light mode
+- **CI/CD:** GitHub Actions with unified release and deploy workflow
 
 ## 🏗️ Project Structure
 
@@ -49,7 +52,8 @@ A modern Next.js application featuring an interactive 3D scene built with React 
 ├── public/               # Static assets
 ├── scripts/              # Build and release scripts
 ├── styles/               # Additional global styles
-└── utils/                # Utility functions
+├── utils/                # Utility functions
+└── .github/workflows/    # GitHub Actions workflows
 ```
 
 ## 🎮 Interactive Features
@@ -98,6 +102,33 @@ A modern Next.js application featuring an interactive 3D scene built with React 
    ```bash
    pnpm dev
    ```
+
+## 🚀 Deployment
+
+### Automated Deployment
+
+This project uses GitHub Actions for automated deployment to Vercel:
+
+1. **Create a new version tag:**
+
+   ```bash
+   git tag v1.0.4
+   git push origin v1.0.4
+   ```
+
+2. **Automatic workflow triggers:**
+   - Creates GitHub release with changelog
+   - Deploys to Vercel production
+   - Updates GitHub deployment records
+
+### Manual Deployment
+
+For manual deployment to Vercel:
+
+```bash
+pnpm build
+vercel --prod
+```
 
 4. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
@@ -281,5 +312,3 @@ If you have any questions or need help:
 - Review the code examples
 
 ---
-
-**Made with ❤️ for Next.js Conf 2024**
