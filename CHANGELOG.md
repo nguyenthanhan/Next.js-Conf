@@ -34,6 +34,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Accessibility**: Enhanced keyboard navigation and screen reader support
 - **Build Optimization**: Streamlined production build process
 
+## [1.0.2] - 2025-08-02
+
+### Added
+
+- **GitHub Button**: Small floating GitHub button in top right corner
+- **Repository Link**: Direct link to source code on GitHub
+- **Custom GitHub Icon**: SVG-based GitHub logo without external dependencies
+- **Accessibility**: Proper aria-label for screen reader support
+
+### Changed
+
+- **UI Enhancement**: Added subtle floating button with backdrop blur effect
+- **Icon System**: Replaced deprecated lucide-react icons with custom SVG
+- **Button Styling**: Compact design with minimal padding and smooth transitions
+
+### Fixed
+
+- **Icon Deprecation**: Resolved deprecated GitHub icon usage
+- **Component Organization**: Added GitHubButton to component exports
+
 ## [Unreleased]
 
 ### Planned Features
