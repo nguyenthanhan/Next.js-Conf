@@ -7,14 +7,14 @@ export function GitHubButton() {
     <Button
       variant="outline"
       size="icon"
-      className="fixed top-4 right-4 z-50 bg-background/80 backdrop-blur-sm border-border/50 hover:bg-background/90 transition-all duration-200 shadow-lg hover:shadow-xl h-7 w-7 p-0.5"
+      className="fixed top-4 right-4 z-50 bg-background/80 backdrop-blur-sm border-border/50 hover:bg-background/90 transition-all duration-200 shadow-lg hover:shadow-xl h-5 w-5 p-0"
       onClick={() =>
         window.open("https://github.com/nguyenthanhan/next.js-conf", "_blank")
       }
       aria-label="View source code on GitHub"
     >
       <svg
-        className="h-3 w-3"
+        className="h-5 w-5 !size-5"
         fill="currentColor"
         viewBox="0 0 24 24"
         aria-hidden="true"
