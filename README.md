@@ -1,6 +1,6 @@
 # Next.js Conf 2024 - Interactive 3D Scene
 
-A modern Next.js application featuring an interactive 3D scene built with React Three Fiber, showcasing animated box letters and immersive user interactions.
+A modern Next.js application featuring an interactive 3D scene built with React Three Fiber, showcasing animated box letters and immersive user interactions. This project demonstrates cutting-edge web technologies for creating engaging 3D experiences in the browser.
 
 ## 🚀 Live Demo
 
@@ -14,6 +14,9 @@ A modern Next.js application featuring an interactive 3D scene built with React 
 - **Modern UI Components**: Comprehensive component library built with Radix UI and Tailwind CSS
 - **TypeScript**: Full type safety throughout the application
 - **Performance Optimized**: Efficient rendering with React Three Fiber
+- **Theme Support**: Dark/light mode with seamless transitions
+- **Mobile Touch Controls**: Intuitive touch interactions for mobile devices
+- **Accessibility**: WCAG compliant with keyboard navigation support
 
 ## 🛠️ Tech Stack
 
@@ -25,6 +28,7 @@ A modern Next.js application featuring an interactive 3D scene built with React 
 - **Icons:** Lucide React
 - **Package Manager:** pnpm
 - **Deployment:** Vercel
+- **Theme:** next-themes for dark/light mode
 
 ## 🏗️ Project Structure
 
@@ -43,6 +47,7 @@ A modern Next.js application featuring an interactive 3D scene built with React 
 ├── hooks/                # Custom React hooks
 ├── lib/                  # Utility functions
 ├── public/               # Static assets
+├── scripts/              # Build and release scripts
 ├── styles/               # Additional global styles
 └── utils/                # Utility functions
 ```
@@ -55,6 +60,7 @@ A modern Next.js application featuring an interactive 3D scene built with React 
 - **Auto-rotation**: Scene automatically rotates when not interacting
 - **Momentum-based Animation**: Drag velocity affects auto-rotation speed
 - **Mobile Optimization**: Touch-friendly controls for mobile devices
+- **Smooth Transitions**: Fluid camera movements and animations
 
 ### Animated Elements
 
@@ -62,13 +68,15 @@ A modern Next.js application featuring an interactive 3D scene built with React 
 - **Random Movement**: Letters move independently when user is not interacting
 - **Color Transitions**: Smooth color changes and visual effects
 - **Responsive Layout**: Adapts to different screen sizes
+- **Performance Optimized**: Efficient rendering with frame rate optimization
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 18+ (LTS version recommended)
 - pnpm (recommended) or npm
+- Git
 
 ### Installation
 
@@ -76,7 +84,7 @@ A modern Next.js application featuring an interactive 3D scene built with React 
 
    ```bash
    git clone <repository-url>
-   cd Next.js-Conf
+   cd next.js-conf
    ```
 
 2. **Install dependencies**
@@ -97,8 +105,31 @@ A modern Next.js application featuring an interactive 3D scene built with React 
 ### Build for Production
 
 ```bash
+# Build the application
 pnpm build
+
+# Start production server
 pnpm start
+
+# Or deploy to Vercel
+vercel --prod
+```
+
+### Development Scripts
+
+```bash
+# Development
+pnpm dev          # Start development server
+pnpm build        # Build for production
+pnpm start        # Start production server
+pnpm lint         # Run ESLint
+
+# Release management
+pnpm release      # Interactive release
+pnpm release:patch # Patch release
+pnpm release:minor # Minor release
+pnpm release:major # Major release
+pnpm changelog    # Generate changelog
 ```
 
 ## 🎨 Customization
@@ -108,18 +139,21 @@ pnpm start
 1. Create new components in the `components/` directory
 2. Import and use them in `Scene.tsx`
 3. Follow the existing patterns for props and animations
+4. Ensure proper TypeScript typing
 
 ### Styling
 
 - Global styles: `app/globals.css`
 - Component styles: Use Tailwind CSS classes
 - Theme customization: Modify `components/theme-provider.tsx`
+- Custom animations: Add to `tailwind.config.ts`
 
 ### UI Components
 
 - All reusable UI components are in `components/ui/`
 - Based on Radix UI primitives for accessibility
 - Follow shadcn/ui patterns for consistency
+- Fully typed with TypeScript
 
 ## 📦 Key Dependencies
 
@@ -135,12 +169,67 @@ pnpm start
 - `tailwindcss`: Utility-first CSS framework
 - `lucide-react`: Beautiful icons
 - `class-variance-authority`: Component variant management
+- `next-themes`: Theme switching
 
 ### Forms & Validation
 
 - `react-hook-form`: Performant forms
 - `@hookform/resolvers`: Form validation resolvers
 - `zod`: TypeScript-first schema validation
+
+### Development Tools
+
+- `typescript`: Type safety
+- `eslint`: Code linting
+- `postcss`: CSS processing
+- `autoprefixer`: CSS vendor prefixes
+
+## 🔧 Configuration
+
+### Environment Variables
+
+Create a `.env.local` file for local development:
+
+```env
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+### Tailwind Configuration
+
+The project uses a custom Tailwind configuration with:
+
+- Custom color palette
+- Animation utilities
+- Responsive breakpoints
+- Dark mode support
+
+### TypeScript Configuration
+
+Strict TypeScript configuration with:
+
+- Path mapping for clean imports
+- Strict type checking
+- Modern ES features
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+1. Connect your GitHub repository to Vercel
+2. Configure build settings:
+   - Build Command: `pnpm build`
+   - Output Directory: `.next`
+   - Install Command: `pnpm install`
+3. Deploy automatically on push to main branch
+
+### Other Platforms
+
+The application can be deployed to any platform that supports Next.js:
+
+- Netlify
+- Railway
+- DigitalOcean App Platform
+- AWS Amplify
 
 ## 🤝 Contributing
 
@@ -161,6 +250,15 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 - `refactor:` Code refactoring
 - `perf:` Performance improvements
 - `test:` Adding or updating tests
+- `chore:` Maintenance tasks
+
+### Development Guidelines
+
+- Write clean, readable code
+- Add TypeScript types for all components
+- Follow the existing code style
+- Test your changes thoroughly
+- Update documentation as needed
 
 ## 📄 License
 
@@ -172,3 +270,16 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - 3D graphics powered by [React Three Fiber](https://github.com/pmndrs/react-three-fiber)
 - UI components inspired by [shadcn/ui](https://ui.shadcn.com/)
 - Deployed on [Vercel](https://vercel.com/)
+- Icons from [Lucide](https://lucide.dev/)
+
+## 📞 Support
+
+If you have any questions or need help:
+
+- Open an issue on GitHub
+- Check the documentation
+- Review the code examples
+
+---
+
+**Made with ❤️ for Next.js Conf 2024**
