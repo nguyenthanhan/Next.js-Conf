@@ -1,6 +1,6 @@
 # homepage – Interactive 3D Scene
 
-[![Release and Deploy](https://github.com/nguyenthanhan/homepage/workflows/Release%20and%20Deploy/badge.svg)](https://github.com/nguyenthanhan/homepage/actions/workflows/deploy-and-release.yml)
+[![Deploy and Release](https://github.com/nguyenthanhan/homepage/actions/workflows/deploy-and-release.yml/badge.svg)](https://github.com/nguyenthanhan/homepage/actions/workflows/deploy-and-release.yml)
 [![Deploy on Vercel](https://img.shields.io/badge/Deploy%20on-Vercel-black)](https://vercel.com/heimers-projects/homepage)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -13,25 +13,26 @@ Interactive 3D scene built with Next.js and React Three Fiber. Clean architectur
 - **3D Scene** with React Three Fiber and Drei
 - **Responsive** and mobile-friendly controls
 - **Dark/Light Theme** via `next-themes`
-- **Modern UI** using Radix UI + Tailwind CSS
+- **Modern UI** using Tailwind CSS
 - **TypeSafe** with strict TypeScript
 - **CI/CD** GitHub Actions + Vercel
 
 ## 🛠️ Tech Stack
 
 - Next.js 15 (React 19, TypeScript)
-- React Three Fiber, Three.js, @react-three/drei
-- Tailwind CSS, Radix UI, shadcn/ui patterns
-- next-themes, Lucide Icons
+- React Three Fiber (@react-three/fiber), Three.js, @react-three/drei
+- Tailwind CSS v4
+- next-themes, @vercel/analytics
 - pnpm, GitHub Actions, Vercel
 
 ## 🗂️ Structure
 
-```
+```text
 app/            # App router
 components/     # UI + 3D components
 hooks/          # Custom hooks
-lib/            # Utilities
+utils/          # Helpers/utilities (e.g., cn)
+lib/            # Server-side or other libs
 public/         # Static assets
 scripts/        # Release/CI helpers
 .github/        # Workflows
@@ -63,7 +64,7 @@ pnpm build
 pnpm start
 
 # Optional: tag a release
-git tag v1.0.4 && git push origin v1.0.4
+git tag vX.Y.Z && git push origin vX.Y.Z
 ```
 
 ### Scripts
