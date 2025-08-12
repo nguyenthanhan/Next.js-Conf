@@ -19,7 +19,6 @@
     "@react-three/fiber": "^9.3.0",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
-    "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "next": "15.2.4",
@@ -34,8 +33,15 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "postcss": ">=8.4.31",
-    "tailwindcss": "^3.4.17",
+    "@tailwindcss/postcss": "^4",
+    "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "packageManager": "pnpm@10.12.4"
+  "packageManager": "pnpm@10.12.4",
+  "pnpm": {
+    "neverBuiltDependencies": [
+      "@vercel/speed-insights",
+      "sharp"
+    ]
+  }
 }
