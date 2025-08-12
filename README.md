@@ -25,7 +25,7 @@ Interactive 3D scene built with Next.js and React Three Fiber. Clean architectur
 - next-themes, Lucide Icons
 - pnpm, GitHub Actions, Vercel
 
-## 🗂️ Structure (brief)
+## 🗂️ Structure
 
 ```
 app/            # App router
@@ -76,17 +76,10 @@ pnpm lint    # Lint
 pnpm release # Interactive release
 ```
 
-## 📦 Notable Dependencies
-
-- `@react-three/fiber`, `@react-three/drei`, `three`
-- `@radix-ui/*`, `tailwindcss`, `lucide-react`, `next-themes`
-- `typescript`, `eslint`, `postcss`, `autoprefixer`
-
 ## 🔧 Config
 
 - Env: `.env.local` (e.g., `NEXT_PUBLIC_APP_URL=http://localhost:3000`)
 - Tailwind: custom colors, animations, dark mode (`tailwind.config.ts`)
-- TS: strict mode, path mapping
 
 ## 🚀 Deployment
 
@@ -106,7 +99,7 @@ MIT — see `LICENSE`.
 
 ## 🙏 Acknowledgments
 
-- Next.js, React Three Fiber, shadcn/ui, Vercel, Lucide
+- Next.js, React Three Fiber, Vercel
 
 ## 📞 Support
 
