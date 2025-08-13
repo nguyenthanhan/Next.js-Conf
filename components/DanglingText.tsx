@@ -1,6 +1,6 @@
 import { useRef, useState, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
-import { BoxLetter } from "./BoxLetter";
+import { BoxLetter } from "@/components/BoxLetter";
 import * as THREE from "three";
 
 interface DanglingTextProps {

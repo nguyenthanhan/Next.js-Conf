@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
-import { BoxWithEdges } from "./BoxWithEdges";
+import { BoxWithEdges } from "@/components/BoxWithEdges";
 import * as THREE from "three";
 
 interface BoxLetterProps {

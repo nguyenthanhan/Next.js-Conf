@@ -1,8 +1,8 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { Scene } from "./components/index";
-import { GitHubButton } from "./components/GitHubButton";
+import { Scene } from "@/components/index";
+import { GitHubButton } from "@/components/GitHubButton";
 
 export default function Component() {
   return (

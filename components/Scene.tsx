@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import { OrbitControls, Environment } from "@react-three/drei";
-import { BoxLetter } from "./BoxLetter";
-import { DanglingText } from "./DanglingText";
-import { isMobile } from "../utils/deviceDetection";
+import { BoxLetter } from "@/components/BoxLetter";
+import { DanglingText } from "@/components/DanglingText";
+import { isMobile } from "@/utils/deviceDetection";
 import * as THREE from "three";
 
 export const Scene = () => {
