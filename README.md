@@ -30,9 +30,7 @@ Interactive 3D scene built with Next.js and React Three Fiber. Clean architectur
 ```text
 app/            # App router
 components/     # UI + 3D components
-hooks/          # Custom hooks
 utils/          # Helpers/utilities (e.g., cn)
-lib/            # Server-side or other libs
 public/         # Static assets
 scripts/        # Release/CI helpers
 .github/        # Workflows
